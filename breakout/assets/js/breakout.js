@@ -1,4 +1,5 @@
 var game, wWdith, wHeight;
+var currentLevel = 1;
 
 
 $(document).ready(function(){
@@ -161,11 +162,6 @@ function ballHitBrick (_ball, _brick) {
     //  Are they any bricks left?
     if (bricks.countLiving() == 0)
     {
-        //  New level starts
-        score += 1000;
-        scoreText.text = 'score: ' + score;
-        introText.text = 'Game Over!';
-
         //  Let's move the ball back to the paddle
         ballOnPaddle = true;
         ball.body.velocity.set(0);
@@ -174,7 +170,14 @@ function ballHitBrick (_ball, _brick) {
         ball.animations.stop();
 
         //  And bring the bricks back from the dead :)
-        bricks.callAll('revive');
+        // bricks.callAll('revive');
+        //  New level starts
+        currentLevel++;
+        score += 1000;
+        scoreText.text = string.score+': ' + score;
+        introText.text = 'Level '+currentLevel+'!';
+        introText.visible = true;
+        setLevel();
     }
 
 }
@@ -204,16 +207,24 @@ function ballHitPaddle (_ball, _paddle) {
 
 }
 
-function setLevel(_lvl) {
+function setLevel() {
     bricks = game.add.group();
     bricks.enableBody = true;
     bricks.physicsBodyType = Phaser.Physics.ARCADE;
 
     var brick;
 
-    brick = bricks.create(100, 100, 'breakout', 'brick_' + 1 + '_1.png');
-    brick.body.bounce.set(1);
-    brick.body.immovable = true;
+    if (1 == currentLevel) {
+        brick = bricks.create(100, 100, 'breakout', 'brick_' + 1 + '_1.png');
+        brick.body.bounce.set(1);
+        brick.body.immovable = true;
+
+    } else {
+        brick = bricks.create(200, 100, 'breakout', 'brick_' + 2 + '_1.png');
+        brick.body.bounce.set(1);
+        brick.body.immovable = true;
+    }
+
     return;
     var brickColor = 0;
     for (var y = 0; y < 8; y++)
