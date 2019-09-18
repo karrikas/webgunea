@@ -1,5 +1,6 @@
 var game, wWdith, wHeight;
 var currentLevel = 1;
+var touchValue = 0;
 
 
 $(document).ready(function(){
@@ -125,6 +126,7 @@ function ballLost () {
 
     lives--;
     livesText.text = string.lives+': ' + lives;
+    touchValue = 0;
 
     if (lives === 0)
     {
@@ -145,7 +147,7 @@ function gameOver () {
 
     ball.body.velocity.setTo(0, 0);
     
-    introText.text = 'Game Over!';
+    introText.text = 'Jokoa amaitu da!';
     introText.visible = true;
 
 }
@@ -154,7 +156,8 @@ function ballHitBrick (_ball, _brick) {
 
     _brick.kill();
 
-    score += 10;
+    touchValue++;
+    score += 100*(0.5*touchValue);
 
     scoreText.text = string.score+': ' + score;
 
@@ -177,6 +180,7 @@ function ballHitBrick (_ball, _brick) {
 
         if (6 == currentLevel) {
             introText.text = 'Zorionak, jokoa amaitu duzu!';
+            ball.body.velocity.setTo(0, 0);
         } else {
             introText.text = currentLevel+'. Maila!';
             setLevel();
@@ -188,6 +192,7 @@ function ballHitBrick (_ball, _brick) {
 function ballHitPaddle (_ball, _paddle) {
 
     var diff = 0;
+    touchValue = 0;
 
     if (_ball.x < _paddle.x)
     {
