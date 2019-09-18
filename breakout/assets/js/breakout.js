@@ -1,11 +1,21 @@
 var game, wWdith, wHeight;
 var currentLevel = 1;
 var touchValue = 0;
+var speed = 10;
 
 
 $(document).ready(function(){
     wWdith = $(window).width();
     wHeight = $(window).height();
+
+    if (600 < wWdith) {
+        wWdith = 600;
+    }
+
+    if (300 < wHeight) {
+        speed = 15* (wHeight / 300);
+    }
+    console.log(speed);
 
     game = new Phaser.Game(wWdith, wHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
 })
@@ -16,6 +26,7 @@ var VERSION = '2.6.2';
 function preload() {
     game.load.atlas('breakout', '/breakout/assets/breakout.png', '/breakout/assets/breakout.json');
     game.load.image('starfield', '/breakout/assets/misc/starfield.jpg');
+    $("#phaser-example canvas").css({"margin": "0 auto"});
 }
 
 var ball;
@@ -48,7 +59,7 @@ function create() {
 
     s = game.add.tileSprite(0, 0, wWdith, wHeight, 'starfield');
 
-    setLevel(1);
+    setLevel();
 
     paddle = game.add.sprite(game.world.centerX, wHeight-100, 'breakout', 'paddle_big.png');
     paddle.anchor.setTo(0.5, 0.5);
@@ -76,6 +87,8 @@ function create() {
     livesText = game.add.text(wWdith-110, wHeight-50, string.lives+': 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
     introText = game.add.text(game.world.centerX, game.world.centerY, '- '+string.start+' -', { font: "40px Arial", fill: "#ffffff", align: "center" });
     introText.anchor.setTo(0.5, 0.5);
+    // infoText = game.add.text(game.world.centerX, game.world.centerY+50, '- '+string.start+' -', { font: "20px Arial", fill: "#ffffff", align: "center" });
+    // infoText.anchor.setTo(0.5, 0.5);
 
     game.input.onDown.add(releaseBall, this);
 
@@ -114,7 +127,7 @@ function releaseBall () {
     if (ballOnPaddle)
     {
         ballOnPaddle = false;
-        ball.body.velocity.y = -300;
+        ball.body.velocity.y = -10 * speed;
         ball.body.velocity.x = -75;
         ball.animations.play('spin');
         introText.visible = false;
@@ -152,14 +165,18 @@ function gameOver () {
 
 }
 
+function updateScoreText() {
+    scoreText.text = string.score+': ' + score;
+}
+
 function ballHitBrick (_ball, _brick) {
 
     _brick.kill();
 
     touchValue++;
-    score += 100*(0.5*touchValue);
+    score += 20*(0.5*touchValue);
 
-    scoreText.text = string.score+': ' + score;
+    updateScoreText();
 
     //  Are they any bricks left?
     if (bricks.countLiving() == 0)
@@ -175,8 +192,8 @@ function ballHitBrick (_ball, _brick) {
         // bricks.callAll('revive');
         //  New level starts
         currentLevel++;
-        score += 1000;
-        scoreText.text = string.score+': ' + score;
+        score += (1000*currentLevel);
+        updateScoreText();
 
         if (6 == currentLevel) {
             introText.text = 'Zorionak, jokoa amaitu duzu!';
@@ -198,20 +215,21 @@ function ballHitPaddle (_ball, _paddle) {
     {
         //  Ball is on the left-hand side of the paddle
         diff = _paddle.x - _ball.x;
-        _ball.body.velocity.x = (-10 * diff);
+        _ball.body.velocity.x = (-1 * speed * diff);
     }
     else if (_ball.x > _paddle.x)
     {
         //  Ball is on the right-hand side of the paddle
         diff = _ball.x -_paddle.x;
-        _ball.body.velocity.x = (10 * diff);
+        _ball.body.velocity.x = (1 * speed * diff);
     }
     else
     {
         //  Ball is perfectly in the middle
         //  Add a little random X to stop it bouncing straight up!
-        _ball.body.velocity.x = 2 + Math.random() * 8;
+        _ball.body.velocity.x = 2 + Math.random() * speed;
     }
+    console.log(_ball.body.velocity.x, _ball.body.velocity.y);
 
 }
 
