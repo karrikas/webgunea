@@ -174,11 +174,15 @@ function ballHitBrick (_ball, _brick) {
         currentLevel++;
         score += 1000;
         scoreText.text = string.score+': ' + score;
-        introText.text = 'Level '+currentLevel+'!';
-        introText.visible = true;
-        setLevel();
-    }
 
+        if (6 == currentLevel) {
+            introText.text = 'Zorionak, jokoa amaitu duzu!';
+        } else {
+            introText.text = currentLevel+'. Maila!';
+            setLevel();
+        }
+        introText.visible = true;
+    }
 }
 
 function ballHitPaddle (_ball, _paddle) {
@@ -212,16 +216,23 @@ function setLevel() {
     bricks.physicsBodyType = Phaser.Physics.ARCADE;
 
     switch(currentLevel) {
+        case 5:
+            var brickPositions = level5();
+            break;
+        case 4:
+            var brickPositions = level4();
+            break;
+        case 3:
+            var brickPositions = level3();
+            break;
         case 2:
-            level2();
+            var brickPositions = level2();
             break;
         case 1:
-            level1();
+            var brickPositions = level1();
             break;
     }
-}
 
-function generateLevel(brickPositions) {
     if (500 > wWdith) {
         var initX = (wWdith-(10*32))/2;
         var brickMargin = 32;
@@ -233,8 +244,9 @@ function generateLevel(brickPositions) {
     brickPositions.forEach(function(lerroa, indexY) {
         lerroa.forEach(function(el, indexX) {
             if (0 == el) {
-                return;
+                return; // continue
             }
+
             var posX = initX + (indexX * brickMargin);
             var posY = 80 + (indexY * 25);
             brick = bricks.create(posX, posY, 'breakout', 'brick_' + el + '_1.png');
@@ -244,8 +256,8 @@ function generateLevel(brickPositions) {
     });
 }
 
-function level2() {
-    var ikusi = [
+function level5() {
+    return [
         [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
@@ -254,21 +266,51 @@ function level2() {
         [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
         [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
     ];
+}
 
-    generateLevel(ikusi);
+function level4() {
+    return [
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+    ];
+}
+
+function level3() {
+    return [
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [2, 3, 3, 3, 3, 3, 3, 3, 3, 2],
+        [1, 2, 3, 3, 3, 3, 3, 3, 2, 1],
+        [0, 1, 2, 3, 3, 3, 3, 2, 1, 0],
+        [0, 0, 1, 2, 3, 3, 2, 1, 0, 0],
+        [0, 0, 0, 1, 2, 2, 1, 0, 0, 0],
+        [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    ];
+}
+
+function level2() {
+    return [
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+    ];
 }
 
 function level1() {
-    var ikusi = [
+    return [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
         [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
     ];
-
-    generateLevel(ikusi);
 }
