@@ -5,7 +5,6 @@ var currentLevel = 1;
 $(document).ready(function(){
     wWdith = $(window).width();
     wHeight = $(window).height();
-    console.log(wWdith, wHeight);
 
     game = new Phaser.Game(wWdith, wHeight, Phaser.AUTO, 'phaser-example', { preload: preload, create: create, update: update });
 })
@@ -212,35 +211,64 @@ function setLevel() {
     bricks.enableBody = true;
     bricks.physicsBodyType = Phaser.Physics.ARCADE;
 
-    var brick;
+    switch(currentLevel) {
+        case 2:
+            level2();
+            break;
+        case 1:
+            level1();
+            break;
+    }
+}
 
-    if (1 == currentLevel) {
-        brick = bricks.create(100, 100, 'breakout', 'brick_' + 1 + '_1.png');
-        brick.body.bounce.set(1);
-        brick.body.immovable = true;
-
+function generateLevel(brickPositions) {
+    if (500 > wWdith) {
+        var initX = (wWdith-(10*32))/2;
+        var brickMargin = 32;
     } else {
-        brick = bricks.create(200, 100, 'breakout', 'brick_' + 2 + '_1.png');
-        brick.body.bounce.set(1);
-        brick.body.immovable = true;
+        var brickMargin = (wWdith-200)/10;
+        var initX = 100+(brickMargin/2)-(32/2);
     }
 
-    return;
-    var brickColor = 0;
-    for (var y = 0; y < 8; y++)
-    {
-        if (brickColor >= 4) {
-            brickColor = 1;
-        }
-        brickColor++;
-        for (var x = 0; x < 10; x++)
-        {
-            var initX = (wWdith-(10*32))/2;
-            var posX = initX + (x * 32);
-            var posY = 80 + (y * 25);
-            brick = bricks.create(posX, posY, 'breakout', 'brick_' + brickColor + '_1.png');
+    brickPositions.forEach(function(lerroa, indexY) {
+        lerroa.forEach(function(el, indexX) {
+            if (0 == el) {
+                return;
+            }
+            var posX = initX + (indexX * brickMargin);
+            var posY = 80 + (indexY * 25);
+            brick = bricks.create(posX, posY, 'breakout', 'brick_' + el + '_1.png');
             brick.body.bounce.set(1);
             brick.body.immovable = true;
-        }
-    }
+        });
+    });
+}
+
+function level2() {
+    var ikusi = [
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 2, 0, 1, 0, 1, 0],
+    ];
+
+    generateLevel(ikusi);
+}
+
+function level1() {
+    var ikusi = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+        [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+        [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    ];
+
+    generateLevel(ikusi);
 }
