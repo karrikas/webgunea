@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>Phaser Example Runner</title>
+        <title>Karrikas.com</title>
         <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
         <script src="/breakout/assets/js/jquery-2.0.3.min.js" type="text/javascript"></script>
         <script src="/breakout/assets/js/phaser.2.6.2.min.js" type="text/javascript"></script>
@@ -11,27 +11,62 @@
         <script src="/breakout/assets/js/filesaver.js" type="text/javascript"></script>
         <script src="/breakout/assets/js/embed.js" type="text/javascript"></script>
         <script src="/breakout/assets/js/breakout.js" type="text/javascript"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
         <style>
+            * {
+                box-sizing: border-box;
+            }
             body {
+                font-family: 'Cute Font', cursive;
                 margin: 0px;
                 padding: 0px;
-                font-family: Arial;
                 font-size: 14px;
                 background-color: #fff;
                 color: #000;
             }
 
             #menua {
-                border: 1px solid red;
+                border-top: 1px solid red;
                 position: fixed;
                 bottom: 0;
                 width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                background-color: #fff;
+                font-size: 20px;
+            }
+            #menua a {
+                color: black;
+                text-decoration: none;
+            }
+            #menua a#k {
+                font-size: 28px;
+            }
+
+            #edukia {
+                position: absolute;
+                left: -10000px;
+                display: none;
             }
         </style>
     </head>
     <body>
         <div id="phaser-example"></div>
 
-        <div id="menua">Probatxoa</div>
+        <div id="menua">
+            <a id="k" href="/">Karrikas.com</a>
+            <a href="/kontaktua">kontaktua</a>
+        </div>
+
+        <div id="edukia">
+            <ul>
+                <li><a href="/">karrikas</a></li>
+                <li><a href="/web-diseinua.html">Web diseinua</a></li>
+                <li><a href="/web-garapena.html">Web garapena</a></li>
+            </ul>
+        </div>
     </body>
 </html>
