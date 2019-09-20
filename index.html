@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Karrikas.com</title>
+        <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0 minimal-ui" />
+        <script src="/breakout/assets/js/jquery-2.0.3.min.js" type="text/javascript"></script>
+        <script src="/breakout/assets/js/main.js" type="text/javascript"></script>
+        <script src="/breakout/assets/js/phaser.2.6.2.min.js" type="text/javascript"></script>
+        <script src="/breakout/assets/js/breakout.js" type="text/javascript"></script>
+        <link href="https://fonts.googleapis.com/css?family=Cute+Font&display=swap" rel="stylesheet">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            body {
+                font-family: 'Cute Font', cursive;
+                margin: 0px;
+                padding: 0px;
+                font-size: 14px;
+                background-color: #fff;
+                color: #000;
+            }
+
+            #menua {
+                border-top: 1px solid rgba(0, 0, 0, 0.1);
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                background-color: #fff;
+                font-size: 20px;
+            }
+            #menua a {
+                color: black;
+                text-decoration: none;
+            }
+            #menua a#k {
+                font-size: 28px;
+            }
+
+            #edukia {
+                position: absolute;
+                left: -10000px;
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="phaser-example"></div>
+
+        <div id="menua">
+            <a id="k" href="/">Karrikas.com</a>
+            <!-- <a href="/kontaktua">kontaktua</a> -->
+            <span id="kontaktua"></span>
+        </div>
+
+        <div id="edukia">
+            <ul>
+                <li><a href="/">karrikas</a></li>
+                <li><a href="/web-diseinua.html">Web diseinua</a></li>
+                <li><a href="/web-garapena.html">Web garapena</a></li>
+            </ul>
+        </div>
+    </body>
+</html>

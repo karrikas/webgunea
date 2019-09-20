@@ -61,7 +61,7 @@ function create() {
 
     setLevel();
 
-    paddle = game.add.sprite(game.world.centerX, wHeight-100, 'breakout', 'paddle_big.png');
+    paddle = game.add.sprite(game.world.centerX, wHeight-120, 'breakout', 'paddle_big.png');
     paddle.anchor.setTo(0.5, 0.5);
 
     game.physics.enable(paddle, Phaser.Physics.ARCADE);
@@ -83,8 +83,8 @@ function create() {
 
     ball.events.onOutOfBounds.add(ballLost, this);
 
-    scoreText = game.add.text(32, wHeight-50, string.score+': 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
-    livesText = game.add.text(wWdith-110, wHeight-50, string.lives+': 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
+    scoreText = game.add.text(32, wHeight-100, string.score+': 0', { font: "20px Arial", fill: "#ffffff", align: "left" });
+    livesText = game.add.text(wWdith-110, wHeight-100, string.lives+': 3', { font: "20px Arial", fill: "#ffffff", align: "left" });
     introText = game.add.text(game.world.centerX, game.world.centerY, '- '+string.start+' -', { font: "40px Arial", fill: "#ffffff", align: "center" });
     introText.anchor.setTo(0.5, 0.5);
     // infoText = game.add.text(game.world.centerX, game.world.centerY+50, '- '+string.start+' -', { font: "20px Arial", fill: "#ffffff", align: "center" });
